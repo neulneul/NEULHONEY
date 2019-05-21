@@ -108,7 +108,7 @@ driver.quit()
 
 
 db = pymysql.connect(host='127.0.0.1', user='root', db='mydb', charset = 'utf8')
-print("connect successfull!")
+print("connect successfull!!!!!!")
 
 try:
     cursor = db.cursor()
