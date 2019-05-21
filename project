@@ -1,0 +1,169 @@
+from bs4 import BeautifulSoup
+from selenium import webdriver
+import pymysql
+
+# # 실시간 랭킹 정보 가져오기 - BeautifulSoup 사용
+# req = Request('http://ticket.interpark.com/contents/Ranking/RankList?pKind=01003&pCate=&pType=D&pDate=20190515')
+# res = urlopen(req)
+# html = res.read()
+#
+# bs = BeautifulSoup(html, 'html.parser')
+# tags = bs.findAll('div', attrs={'class': 'prdInfo'})
+#
+# for tag in tags:
+#     print(tag.text)
+
+# # 실시간 랭킹 정보 가져오기 - Selenium 사용
+# driver = webdriver.Chrome('C:/Users/dh953/Downloads/chromedriver_win32/chromedriver.exe')
+# # 암묵적으로 웹 자원로드를 위해 기다려줌
+# # driver.implicitly_wait(3)
+# # url에 접근
+# driver.get('http://ticket.interpark.com/contents/Ranking/RankList?pKind=01003&pType=D')
+# # 암묵적으로 웹 자원로드를 위해 기다려줌
+# driver.implicitly_wait(3)
+#
+# # webdriver가 연 url의 html을 가져옴
+# html = driver.page_source
+# # BeautifulSoup으로 분석
+# soup = BeautifulSoup(html, 'html.parser')
+# # 순위
+# rank_list = []
+# ranks = soup.find_all('div', attrs={'class': 'ranks'})
+# # 제목
+# titles = soup.find_all('div', attrs={'class': 'prdInfo'})
+# # 이미지
+# image_list = []
+# for i in range(2, 51):
+#     url = "/html/body/div[7]/div[" + str(i) + "]/table/tbody/tr/td[1]/a/img"
+#     image = driver.find_element_by_xpath(url).get_attribute('src')
+#     image_list.append(image)
+#
+# print(image_list)
+# # 웹 브라우저 닫기
+# driver.quit()
+
+# # 순위, 제목
+# for rank, title in zip(ranks, titles):
+#     print("%s위 %s" %(rank.i.text, title.b.text))
+
+# 데이터베이스 연동 및 저장
+# Open database Connection
+db = pymysql.connect(host='127.0.0.1', user='root', passwd='system', db='testdb')
+
+# Prepare a cursor object using cursor() method
+cursor = db.cursor()
+
+# 쿼리문 실행
+sql = "desc user;"
+cursor.execute(sql)
+
+# Fetch a single row using fetchone() method
+data = cursor.fetchall()
+
+for i in data:
+    print(i)
+
+# disconnect from server
+db.close()
+
+
+
+
+
+# driver = webdriver.Chrome('C:/Users/dh953/Downloads/chromedriver_win32/chromedriver.exe')
+# # 암묵적으로 웹 자원로드를 위해 기다려줌
+# # driver.implicitly_wait(3)
+# # url에 접근
+# driver.get('http://ticket.interpark.com/Ticket/Goods/GoodsInfo.asp?GoodsCode=19007656')
+# # 암묵적으로 웹 자원로드를 위해 기다려줌
+# driver.implicitly_wait(3)
+# # 클래스 이름에 해당하는 부분을 text로 출력
+# div_TabA = driver.find_element_by_class_name("TabA_Info")
+# print(div_TabA.text)
+# # 웹 브라우저 닫기
+# driver.quit()
+
+# # 콘서트 이름
+# print("[공연 이름]")
+# div_concert_name = driver.find_element_by_id("IDGoodsName")
+# print(div_concert_name.text)
+# # 출연자
+# print("[출연자]")
+# div_name = driver.find_element_by_xpath("//*[@id='TabA']/div[2]/ul/li[3]/dl/dd/a")
+# print(div_name.text)
+# # 장소
+# print("[장소]")
+# div_place = driver.find_element_by_xpath("//*[@id='TabA']/div[2]/ul/li[1]/dl/dd")
+# print(div_place.text)
+# # 기간
+# print("[기간]")
+# div_date = driver.find_element_by_xpath("//*[@id='TabA']/div[2]/ul/li[2]/dl/dd/span[1]")
+# print(div_date.text)
+# # 가격정보
+# print("[가격정보]")
+# div_price = driver.find_element_by_id("divSalesPrice")
+# print(div_price.text)
+# # 부가할인
+# print("[부가할인]")
+# div_sales = driver.find_element_by_xpath("//*[@id='TabA']/div[2]/div[1]/ul/li[3]/div[2]")
+# print(div_sales.text)
+# # 배송
+# print("[배송]")
+# div_diliver = driver.find_element_by_xpath("//*[@id='TabA']/div[2]/div[2]/ul/li/div[2]/div")
+# print(div_diliver.text)
+# # 웹 브라우저 닫기
+# driver.quit()
+
+#
+# price = driver.find_element_by_class_name("div.SeatPrice_Wrap")
+# for prices in price:
+#     print(prices.text)
+# html = driver.page_source
+# soup = BeautifulSoup(html, 'html.parser')
+# notices = soup.select('div.TabB')
+#
+# for n in notices:
+#     print(n.text.strip())
+
+
+# if __name__ == "__main__":
+#     soup = BeautifulSoup(urllib.request.urlopen('http://ticket.interpark.com/Ticket/Goods/GoodsInfo.asp?GroupCode=19005954').read(),'html.parser')
+#     res = soup.find_all('div', 'TabB')
+#
+#     for n in res:
+#         print(n.get_text())
+# req = Request("http://ticket.interpark.com/Ticket/Goods/GoodsInfo.asp?GroupCode=19005954")
+# # res = urlopen(req)
+# # html = res.read().decode('cp949')
+# bsObject = BeautifulSoup(html, "html.parser")
+
+# req = requests.get('http://ticket.interpark.com/Ticket/Goods/GoodsInfo.asp?GroupCode=19005954')
+#
+# html = BS(req.text, 'html.parser')
+# # BeautifulSoup 초기화
+# print(html)
+
+# div_TabB = bsObject.findAll('div', attrs={'class': 'SeatPrice_Wrap'})
+#
+# for tag in div_TabB:
+#     print(tag.td)
+
+#
+# tags_TabA_Info = bsObject.findAll('div', attrs={'class': 'TabA_Info'})
+#
+# for tag in tags_TabA_Info:
+#     print(tag.ul.text)
+
+# json_url = "http://ticket.interpark.com/Ticket/Goods/GoodsInfoJSON.asp"
+# json_parameter = "?Flag=SalesPrice&GoodsCode=19005954&PlaceCode=19000481&Point=N&Callback=fnSalesPriceCallBackJSON"
+# json_params = {
+#     'query': 'Flag',
+#     'CallBack': 'fnSalesPriceCallBackJSON'
+# }
+# response = request.get(json_url, params=json_params).text
+# print(response)
+# response = urllib.urlopen('http://ticket.interpark.com/Ticket/Goods/GoodsInfo.asp?GroupCode=19005954')
+# data = json.load(response)
+# print(data)
+
+
