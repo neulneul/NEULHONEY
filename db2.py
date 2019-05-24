@@ -125,9 +125,6 @@ print("connect successfull!!!")
 try:
     cursor = db.cursor()
 
-    # for i in range(0, 1):
-        # sql = "insert into ranking(concert_id, concert_name, concert_place, concert_start_date, concert_end_dat) values (‘000’, name_list[" + str(i) + "], location_list[" + str(i) +"], ‘2019.01.01’, ‘2019.01.01’);"
-    #sql = "insert into ranking(concert_id, concert_name, concert_place, concert_start_date, concert_end_dat) values('90005', 'nneul', 'neul2', '2019.01.01', '2019.01.01');"
     for i in range(0, 8):
         sql = "insert into ranking(concert_id, concert_name, concert_place, concert_start_date, concert_end_dat) values('" + concert_id[i] + "', '" + name_list[i] +"', '"+ location_list[i] +"', '"+ start_date_list[i] + "', '" + end_date_list[i] +"');"
         cursor.execute(sql)
