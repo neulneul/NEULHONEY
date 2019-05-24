@@ -9,7 +9,7 @@ driver.get("http://ticket.interpark.com/contents/Ranking/RankList?pType=D&pKind=
 
 time.sleep(5)
 
-#concert group id list ??????? 어케 가져오지.....
+
 concert_num = []
 concert_id = []
 
@@ -22,21 +22,20 @@ location_list = []
 #concert date list
 date_list = []
 
+#concert start date list
+start_date_list = []
+#concert end date list
+end_date_list = []
+
 for i in range(2, 10) :
     url = "/html/body/div[7]/div[" + str(i) + "]/table/tbody/tr/td[1]/div[2]/a"
     elem = driver.find_element_by_xpath(url).get_attribute('onclick')
     concert_num.append(elem)
 
-# list(concert_num)
-print(concert_num)
-#
-# for j in range(0, 8) :
-#     num = concert_num[j].find("\'")
-#
-#     id = concert_num[j]
-#     concert_id[i] = id[]
-#
-
+for j in range(0, 8) :
+    id = (concert_num[j])[5:12]
+    concert_id.append(id)
+print(concert_id)
 
 
 for i in range(2, 10) :
@@ -68,7 +67,20 @@ for i in range(2, 10) :
     date_list.append(elem3[0].text)
 
 
+
+for i in range(0, 8):
+
+    num1 = date_list[i].find('2019')
+    startdate = (date_list[i])[num1:num1+10]
+    start_date_list.append(startdate)
+
+    num2 = date_list[i].rfind('2019')
+    enddate = (date_list[i])[num2:num2+10]
+    end_date_list.append(enddate)
+
 print(date_list)
+print(start_date_list)
+print(end_date_list)
 
 driver.quit()
 
@@ -115,11 +127,13 @@ try:
 
     # for i in range(0, 1):
         # sql = "insert into ranking(concert_id, concert_name, concert_place, concert_start_date, concert_end_dat) values (‘000’, name_list[" + str(i) + "], location_list[" + str(i) +"], ‘2019.01.01’, ‘2019.01.01’);"
-    sql = "insert into ranking(concert_id, concert_name, concert_place, concert_start_date, concert_end_dat) values('12345', 'neul2', 'neul2', '2019.01.01', '2019.01.01');"
+    #sql = "insert into ranking(concert_id, concert_name, concert_place, concert_start_date, concert_end_dat) values('90005', 'nneul', 'neul2', '2019.01.01', '2019.01.01');"
+    for i in range(0, 8):
+        sql = "insert into ranking(concert_id, concert_name, concert_place, concert_start_date, concert_end_dat) values('" + concert_id[i] + "', '" + name_list[i] +"', '"+ location_list[i] +"', '"+ start_date_list[i] + "', '" + end_date_list[i] +"');"
+        cursor.execute(sql)
+        db.commit()
 
-    cursor.execute(sql)
 
-    db.commit()
 
     print(cursor.lastrowid)
 finally:
