@@ -13,6 +13,9 @@ time.sleep(5)
 concert_num = []
 concert_id = []
 
+#image_src_list
+image_src_list = []
+
 #concert name list
 name_list = []
 
@@ -44,6 +47,14 @@ for i in range(2, 10) :
     name_list.append(elem1[0].text)
 
 print(name_list)
+
+for i in range(2, 10) :
+    url = "/html/body/div[7]/div[" + str(i) + "]/table/tbody/tr/td[1]/a/img"
+    elem0 = driver.find_element_by_xpath(url).get_attribute('src')
+    image_src_list.append(elem0)
+
+print(image_src_list)
+
 
 
 for i in range(2, 10) :
@@ -78,45 +89,11 @@ for i in range(0, 8):
     enddate = (date_list[i])[num2:num2+10]
     end_date_list.append(enddate)
 
-print(date_list)
+
 print(start_date_list)
 print(end_date_list)
 
 driver.quit()
-
-#
-# sql = [
-#             CREATE TABLE concert_rank (
-#                     name VARCHAR(30) NOT NULL AUTO_INCREMENT,
-#                     location VARCHAR(30) NOT NULL,
-#                     date VARCHAR(30) NOT NULL,
-#                     PRIMARY KEY(name)
-#             );
-#     ]
-#
-# cur.execute(sql)
-# conn.commit()
-# conn.close()
-
-
-# conn = pymysql.connect(host='127.0.0.1', user='root', passwd='Rlagksmf2156*', db = 'mysql') #utf8mb4???127.0.0.1
-# conn = pymysql.connect(host='127.0.0.1', user='root', db='mydb', charset = 'utf8')
-# print("connect successfull!!")
-#
-# cursor = conn.cursor()
-#
-# sql = "desc ranking;"
-# cursor.execute(sql)
-#
-# data = cursor.fetchall()
-#
-# for i in data:
-#     print(i)
-#
-#
-# conn.close()
-
-
 
 
 db = pymysql.connect(host='127.0.0.1', user='root', db='mydb', charset = 'utf8')
@@ -126,11 +103,9 @@ try:
     cursor = db.cursor()
 
     for i in range(0, 8):
-        sql = "insert into ranking(concert_id, concert_name, concert_place, concert_start_date, concert_end_dat) values('" + concert_id[i] + "', '" + name_list[i] +"', '"+ location_list[i] +"', '"+ start_date_list[i] + "', '" + end_date_list[i] +"');"
+        sql = "insert into ranking(concert_id, concert_name, concert_place, concert_start_date, concert_end_dat, concert_main_img) values('" + concert_id[i] + "', '" + name_list[i] +"', '"+ location_list[i] +"', '"+ start_date_list[i] + "', '" + end_date_list[i] + "', '" + image_src_list[i] +"');"
         cursor.execute(sql)
         db.commit()
-
-
 
     print(cursor.lastrowid)
 finally:
