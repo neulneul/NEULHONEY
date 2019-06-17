@@ -79,20 +79,19 @@ for i in range(2, 30) :
 
 for i in range(0, 28):
 
-    num1 = date_list[i].find('2019')
-    startdate = (date_list[i])[num1:num1+10]
+    num1 = date_list[i].find('.')
+    startdate = (date_list[i])[num1-4:num1+6]
     start_date_list.append(startdate)
 
-    num2 = date_list[i].rfind('2019')
-    enddate = (date_list[i])[num2:num2+10]
-    end_date_list.append(enddate)
 
+    num2 = date_list[i].rfind('.')
+    enddate = (date_list[i])[num2-7:num2+3]
+    end_date_list.append(enddate)
 
 print(start_date_list)
 print(end_date_list)
 
 driver.quit()
-
 
 db = pymysql.connect(host='127.0.0.1', user='root', passwd='Rlagksmf2156*', db='mydb', charset = 'utf8')
 print("connect successfull!!!")
