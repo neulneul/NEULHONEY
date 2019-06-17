@@ -94,6 +94,7 @@ for i in range(0, 28):
 print(start_date_list)
 print(end_date_list)
 
+#concert별 ranking
 for i in range(2, 30) :
     url = "/html/body/div[7]/div[" + str(i) + "]/table/tbody/tr/td[1]/div[1]/i"
     elem4 = driver.find_elements_by_xpath(url)
@@ -103,7 +104,8 @@ print(ranking_list)
 
 driver.quit()
 
-db = pymysql.connect(host='127.0.0.1', user='root', passwd='Rlagksmf2156*', db='mydb', charset = 'utf8')
+#mysql 연동
+db = pymysql.connect(host='127.0.0.1', user='root', passwd='Rlagksmf2156*', db='mydb', charset='utf8')
 print("connect successfull!!!")
 
 try:
