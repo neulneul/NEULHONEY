@@ -30,6 +30,9 @@ start_date_list = []
 #concert end date list
 end_date_list = []
 
+#concert_ranking_list
+ranking_list = []
+
 for i in range(2, 30) :
     url = "/html/body/div[7]/div[" + str(i) + "]/table/tbody/tr/td[1]/div[2]/a"
     elem = driver.find_element_by_xpath(url).get_attribute('onclick')
@@ -91,6 +94,13 @@ for i in range(0, 28):
 print(start_date_list)
 print(end_date_list)
 
+for i in range(2, 30) :
+    url = "/html/body/div[7]/div[" + str(i) + "]/table/tbody/tr/td[1]/div[1]/i"
+    elem4 = driver.find_elements_by_xpath(url)
+    ranking_list.append(elem4[0].text)
+
+print(ranking_list)
+
 driver.quit()
 
 db = pymysql.connect(host='127.0.0.1', user='root', passwd='Rlagksmf2156*', db='mydb', charset = 'utf8')
@@ -100,7 +110,7 @@ try:
     cursor = db.cursor()
 
     for i in range(0, 28):
-        sql = "insert into ranking(concert_id, concert_name, concert_place, concert_start_date, concert_end_date, concert_main_img) values('" + concert_id[i] + "', '" + name_list[i] +"', '"+ location_list[i] +"', '"+ start_date_list[i] + "', '" + end_date_list[i] + "', '" + image_src_list[i] +"');"
+        sql = "insert into ranking(concert_id, concert_name, concert_place, concert_start_date, concert_end_date, concert_main_img, concert_ranking) values('" + concert_id[i] + "', '" + name_list[i] +"', '"+ location_list[i] +"', '"+ start_date_list[i] + "', '" + end_date_list[i] + "', '" + image_src_list[i] + "', '" + ranking_list[i] + "');"
         cursor.execute(sql)
         db.commit()
 
